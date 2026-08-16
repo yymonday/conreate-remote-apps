@@ -1,0 +1,29 @@
+name: Conreate Remote
+version: "0.1.0"
+slug: conreate_remote
+description: Securely connects Home Assistant to Conreate Cloud remote access.
+stage: experimental
+url: https://github.com/yymonday/conreate-cloud
+arch:
+  - amd64
+  - aarch64
+image: ghcr.io/yymonday/conreate-remote-ha-app
+startup: services
+boot: auto
+init: false
+homeassistant_api: false
+host_network: false
+map:
+  - addon_config:rw
+options:
+  control_plane_url: https://api.example.com
+  activation_code: ""
+  recovery_code: ""
+  recover_device_id: ""
+  device_name: Home Assistant
+schema:
+  control_plane_url: url
+  activation_code: password
+  recovery_code: password
+  recover_device_id: str?
+  device_name: str

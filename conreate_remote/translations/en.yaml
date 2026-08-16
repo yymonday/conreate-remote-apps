@@ -1,0 +1,16 @@
+configuration:
+  control_plane_url:
+    name: Conreate Cloud address
+    description: Public HTTPS address of the Conreate Cloud Control Plane.
+  activation_code:
+    name: Activation code
+    description: One-time code for registering a new device. Leave empty after activation.
+  recovery_code:
+    name: Recovery code
+    description: Short-lived code issued by an administrator when replacing a lost App identity.
+  recover_device_id:
+    name: Existing Device ID
+    description: Required together with a recovery code. Do not use it during first activation.
+  device_name:
+    name: Device name
+    description: Friendly name displayed in the Conreate Cloud Console.
