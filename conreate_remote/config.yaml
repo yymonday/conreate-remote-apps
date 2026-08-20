@@ -1,5 +1,5 @@
 name: Conreate Remote
-version: "0.1.0"
+version: "0.1.1"
 slug: conreate_remote
 description: Securely connects Home Assistant to Conreate Cloud remote access.
 stage: experimental
@@ -21,9 +21,13 @@ options:
   recovery_code: ""
   recover_device_id: ""
   device_name: Home Assistant
+  local_addr: homeassistant
+  local_port: 8123
 schema:
   control_plane_url: url
   activation_code: password
   recovery_code: password
   recover_device_id: str?
   device_name: str
+  local_addr: str
+  local_port: int

@@ -14,9 +14,10 @@ Ask the Conreate Cloud administrator for:
 
 1. Enter the Control Plane URL and one-time activation code in the App configuration.
 2. Keep `Home Assistant URL` at `http://homeassistant:8123` on HA OS unless your installation requires another reachable address.
-3. Save and start the App.
-4. Open the App log. After activation it shows the assigned remote HTTPS URL.
-5. Open that URL from an external network and sign in with an existing Home Assistant user.
+3. If Home Assistant listens on a non-default port, set `local_addr` and `local_port` to the address reachable from the App, such as `homeassistant` and `7277`.
+4. Save and start the App.
+5. Open the App log. After activation it shows the assigned remote HTTPS URL.
+6. Open that URL from an external network and sign in with an existing Home Assistant user.
 
 The App stores its generated device identity and issued credentials in its persistent configuration directory. Do not copy or publish those files.
 

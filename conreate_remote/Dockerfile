@@ -1,9 +1,9 @@
 ARG BUILD_ARCH=amd64
-ARG AGENT_IMAGE=ghcr.io/yymonday/conreate-remote-agent:0.1.0
+ARG AGENT_IMAGE=ghcr.io/yymonday/conreate-remote-agent:0.1.1
 FROM ${AGENT_IMAGE} AS agent_core
 FROM ghcr.io/home-assistant/${BUILD_ARCH}-base:3.19
 ARG BUILD_ARCH
-ARG BUILD_VERSION=0.1.0
+ARG BUILD_VERSION=0.1.1
 LABEL \
     io.hass.version="${BUILD_VERSION}" \
     io.hass.type="app" \

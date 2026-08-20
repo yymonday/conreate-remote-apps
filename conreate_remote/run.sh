@@ -4,12 +4,22 @@ export CONREATE_ACTIVATION_CODE="$(bashio::config 'activation_code')"
 export CONREATE_RECOVERY_CODE="$(bashio::config 'recovery_code')"
 export CONREATE_RECOVER_DEVICE_ID="$(bashio::config 'recover_device_id')"
 export CONREATE_DEVICE_NAME="$(bashio::config 'device_name')"
+export CONREATE_LOCAL_ADDR="$(bashio::config 'local_addr')"
+export CONREATE_LOCAL_PORT="$(bashio::config 'local_port')"
 export CONREATE_STATE_DIR="/config"
-export CONREATE_LOCAL_ADDR="homeassistant"
-export CONREATE_LOCAL_PORT="8123"
 
 if [[ "${CONREATE_CONTROL_PLANE_URL}" != https://* ]]; then
     bashio::log.fatal "Control Plane 地址必须使用 https:// 域名。"
+    exit 1
+fi
+
+if ! [[ "${CONREATE_LOCAL_PORT}" =~ ^[0-9]+$ ]] || (( CONREATE_LOCAL_PORT < 1 || CONREATE_LOCAL_PORT > 65535 )); then
+    bashio::log.fatal "本地 HA 端口必须是 1-65535。"
+    exit 1
+fi
+
+if [[ -z "${CONREATE_LOCAL_ADDR}" || "${CONREATE_LOCAL_ADDR}" == "0.0.0.0" || "${CONREATE_LOCAL_ADDR}" == "127.0.0.1" ]]; then
+    bashio::log.fatal "本地 HA 地址不能为空，且不能使用 0.0.0.0 或 127.0.0.1。"
     exit 1
 fi
 
