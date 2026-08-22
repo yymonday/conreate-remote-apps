@@ -4,6 +4,8 @@ Install the repository in Home Assistant, set the HTTPS Control Plane domain and
 
 On a successful connection, the App log prints the assigned remote URL. A sanitized `/config/status.json` also records the current phase, Device ID, remote URL, message, and update time; it never contains the device token, FRP credential, activation code, or private identity key.
 
+The App defaults to Home Assistant at `homeassistant:8123`. For installations using another internal port, configure `local_addr` and `local_port` in the App options; the port is validated before the Agent starts.
+
 This App does not modify Home Assistant users or authentication. Remote visitors still sign in to Home Assistant normally.
 
 For recovery, stop the App, clear its lost/invalid Agent state as directed by support, then enter both the administrator-issued recovery code and original Device ID. Recovery replaces the device identity/token while retaining its assigned remote hostname. Do not enter an activation code at the same time.

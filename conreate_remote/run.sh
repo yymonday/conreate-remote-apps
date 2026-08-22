@@ -23,12 +23,19 @@ if [[ -z "${CONREATE_LOCAL_ADDR}" || "${CONREATE_LOCAL_ADDR}" == "0.0.0.0" || "$
     exit 1
 fi
 
+if [[ -n "${CONREATE_RECOVERY_CODE}" || -n "${CONREATE_RECOVER_DEVICE_ID}" ]]; then
+    if [[ -z "${CONREATE_RECOVERY_CODE}" || -z "${CONREATE_RECOVER_DEVICE_ID}" ]]; then
+        bashio::log.fatal "设备恢复必须同时填写恢复码和原 Device ID，不能只填写其中一项。"
+        exit 1
+    fi
+fi
+
 if [[ ! -f /config/agent-state.json ]]; then
     if [[ -n "${CONREATE_ACTIVATION_CODE}" && ( -n "${CONREATE_RECOVERY_CODE}" || -n "${CONREATE_RECOVER_DEVICE_ID}" ) ]]; then
         bashio::log.fatal "激活码不能与恢复码同时填写。"
         exit 1
     fi
-    if [[ -z "${CONREATE_ACTIVATION_CODE}" && ( -z "${CONREATE_RECOVERY_CODE}" || -z "${CONREATE_RECOVER_DEVICE_ID}" ) ]]; then
+    if [[ -z "${CONREATE_ACTIVATION_CODE}" && -z "${CONREATE_RECOVERY_CODE}" ]]; then
         bashio::log.fatal "首次启动必须填写激活码；设备恢复必须同时填写恢复码和原 Device ID。"
         exit 1
     fi

@@ -1,5 +1,5 @@
 name: Conreate Remote
-version: "0.1.1"
+version: "0.1.5"
 slug: conreate_remote
 description: Securely connects Home Assistant to Conreate Cloud remote access.
 stage: experimental
@@ -7,7 +7,7 @@ url: https://github.com/yymonday/conreate-cloud
 arch:
   - amd64
   - aarch64
-image: ghcr.io/yymonday/conreate-remote-ha-app
+image: ghcr.io/yymonday/conreate-remote-ha-app:0.1.5
 startup: services
 boot: auto
 init: false

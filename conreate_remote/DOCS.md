@@ -23,7 +23,7 @@ The App stores its generated device identity and issued credentials in its persi
 
 ## Recovery
 
-If the persistent device state is lost, stop the App and obtain a recovery code plus the original Device ID from the Conreate Cloud administrator. Enter both recovery values and leave the activation code empty. Recovery keeps the assigned hostname while replacing the device identity and token.
+If the device is shown as revoked or its persistent state is lost, stop the App and obtain a recovery code plus the original Device ID from the Conreate Cloud administrator. Creating the recovery code immediately revokes the old connection. Enter both recovery values and restart the App; an existing one-time activation value is ignored when local state already exists. Recovery keeps the assigned Device ID and hostname while replacing the device token. After the App reconnects, clear both recovery fields so they are not retained in the App options.
 
 ## Troubleshooting
 

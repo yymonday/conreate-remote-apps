@@ -4,13 +4,13 @@ configuration:
     description: Conreate Cloud Control Plane 的公网 HTTPS 地址。
   activation_code:
     name: 激活码
-    description: 注册新设备的一次性激活码；激活完成后可以留空。
+    description: 只用于注册全新设备的一次性代码，不是 HA 登录密码；激活完成后建议清空。
   recovery_code:
     name: 恢复码
-    description: App 身份丢失后由管理员签发的短期一次性恢复码。
+    description: 设备显示“已撤销”或本地状态丢失时使用；生成后只有短时间有效，恢复完成后请清空。
   recover_device_id:
     name: 原 Device ID
-    description: 设备恢复时与恢复码一起填写，首次激活不要填写。
+    description: 必须与恢复码同时填写，用于保留原远程域名；首次激活不要填写，恢复完成后请清空。
   device_name:
     name: 设备名称
     description: 在 Conreate Cloud 控制台中显示的友好名称。
