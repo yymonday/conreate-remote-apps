@@ -1,9 +1,9 @@
-ARG AGENT_IMAGE=ccr.ccs.tencentyun.com/conreateknx/conreate-remote-agent:0.1.9
+ARG AGENT_IMAGE=ccr.ccs.tencentyun.com/conreateknx/conreate-remote-agent:0.1.10
 FROM ${AGENT_IMAGE} AS agent_core
 
 FROM ghcr.io/home-assistant/base-python:3.14-alpine3.24
 ARG BUILD_ARCH
-ARG BUILD_VERSION=0.1.9
+ARG BUILD_VERSION=0.1.10
 LABEL \
     io.hass.version="${BUILD_VERSION}" \
     io.hass.type="app" \

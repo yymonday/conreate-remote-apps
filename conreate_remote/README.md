@@ -2,7 +2,7 @@
 
 Install the repository in Home Assistant, set the HTTPS Control Plane domain and a one-time activation code, then start the App. The Agent identity and issued device token persist in the App configuration directory.
 
-On every startup with an enrolled device, the App log clearly prints `你的 Home Assistant 远程访问网址 / Remote access URL: ...`; after the tunnel is ready it repeats the address. A sanitized `/config/status.json` also records the current phase, Device ID, remote URL, message, and update time; it never contains the device token, FRP credential, activation code, or private identity key. If HA returns HTTP 400, the status changes to `configuration_required` and points the administrator to Home Assistant's UI-based reverse-proxy settings instead of asking the customer to edit YAML.
+On every startup with an enrolled device, the App log clearly prints `你的 Home Assistant 远程访问网址 / Remote access URL: ...` and the **HA 反向代理信任地址 / HA trusted proxy address**. A sanitized `/config/status.json` also records the current phase, Device ID, remote URL, trusted proxy address, message, and update time; it never contains the device token, FRP credential, activation code, or private identity key. If HA returns HTTP 400, the status changes to `configuration_required` and points the administrator to Home Assistant's UI-based reverse-proxy settings with the exact address to copy, instead of asking the customer to edit YAML.
 
 The App defaults to Home Assistant at `homeassistant:8123`. For installations using another internal port, configure `local_addr` and `local_port` in the App options; the port is validated before the Agent starts.
 
