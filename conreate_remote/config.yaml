@@ -7,7 +7,7 @@ url: https://github.com/yymonday/conreate-remote-apps
 arch:
   - amd64
   - aarch64
-image: ghcr.io/yymonday/conreate-remote-ha-app:0.1.9
+image: ghcr.io/yymonday/conreate-remote-ha-app
 startup: services
 boot: auto
 init: false
