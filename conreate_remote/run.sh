@@ -42,4 +42,5 @@ if [[ ! -f /config/agent-state.json ]]; then
 fi
 
 bashio::log.info "正在启动 Conreate Remote；设备身份保存在 App 私有配置目录。"
+bashio::log.info "启动后请在本页日志中查找“你的 Home Assistant 远程访问网址”。"
 exec python3 -m conreate_agent.main

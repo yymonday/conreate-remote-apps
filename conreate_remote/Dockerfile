@@ -1,15 +1,18 @@
-ARG BUILD_ARCH=amd64
-ARG AGENT_IMAGE=ghcr.io/yymonday/conreate-remote-agent:0.1.5
+ARG AGENT_IMAGE=ccr.ccs.tencentyun.com/conreateknx/conreate-remote-agent:0.1.9
 FROM ${AGENT_IMAGE} AS agent_core
-FROM ghcr.io/home-assistant/${BUILD_ARCH}-base:3.19
+
+FROM ghcr.io/home-assistant/base-python:3.14-alpine3.24
 ARG BUILD_ARCH
-ARG BUILD_VERSION=0.1.5
+ARG BUILD_VERSION=0.1.9
 LABEL \
     io.hass.version="${BUILD_VERSION}" \
     io.hass.type="app" \
     io.hass.arch="${BUILD_ARCH}" \
-    org.opencontainers.image.source="https://github.com/yymonday/conreate-cloud"
-RUN for i in 1 2 3 4 5; do apk add --no-cache python3 py3-pip && break || sleep 5; done
+    org.opencontainers.image.source="https://github.com/yymonday/conreate-remote-apps"
+# tempio is optional tooling from the HA base image. This App does not invoke
+# it; remove the stale Go binary so its bundled vulnerable dependencies are not
+# exposed in the customer-facing runtime.
+RUN apk upgrade --no-cache && rm -f /usr/bin/tempio
 COPY agent-requirements.txt /tmp/requirements.txt
 RUN pip3 install --break-system-packages --no-cache-dir --timeout 300 --retries 10 -r /tmp/requirements.txt
 COPY --from=agent_core /usr/local/bin/frpc /usr/local/bin/frpc
