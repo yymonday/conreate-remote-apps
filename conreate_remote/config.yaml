@@ -1,5 +1,5 @@
 name: Conreate Remote
-version: "0.1.9"
+version: "0.1.10"
 slug: conreate_remote
 description: Securely connects Home Assistant to Conreate Cloud remote access.
 stage: experimental
