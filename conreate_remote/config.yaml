@@ -1,5 +1,5 @@
 name: Conreate Remote
-version: "0.1.11"
+version: "0.2.0-rc.1"
 slug: conreate_remote
 description: Securely connects Home Assistant to Conreate Cloud remote access.
 stage: experimental
@@ -11,6 +11,11 @@ image: ghcr.io/yymonday/conreate-remote-ha-app
 startup: services
 boot: auto
 init: false
+ingress: true
+ingress_port: 8099
+panel_title: Conreate Remote
+panel_icon: mdi:cloud-lock-outline
+panel_admin: true
 homeassistant_api: false
 host_network: false
 map:

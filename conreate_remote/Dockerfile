@@ -1,9 +1,9 @@
-ARG AGENT_IMAGE=ccr.ccs.tencentyun.com/conreateknx/conreate-remote-agent:0.1.11
+ARG AGENT_IMAGE=ccr.ccs.tencentyun.com/conreateknx/conreate-remote-agent:0.2.0-rc.1
 FROM ${AGENT_IMAGE} AS agent_core
 
 FROM ghcr.io/home-assistant/base-python:3.14-alpine3.24
 ARG BUILD_ARCH
-ARG BUILD_VERSION=0.1.11
+ARG BUILD_VERSION=0.2.0-rc.1
 LABEL \
     io.hass.version="${BUILD_VERSION}" \
     io.hass.type="app" \
@@ -18,6 +18,7 @@ RUN pip3 install --break-system-packages --no-cache-dir --timeout 300 --retries 
 COPY --from=agent_core /usr/local/bin/frpc /usr/local/bin/frpc
 COPY --from=agent_core /usr/share/licenses/frp/LICENSE /usr/share/licenses/frp/LICENSE
 COPY --from=agent_core /app/conreate_agent /app/conreate_agent
+COPY ingress.py /app/ingress.py
 COPY run.sh /run.sh
 RUN chmod +x /run.sh
 WORKDIR /app

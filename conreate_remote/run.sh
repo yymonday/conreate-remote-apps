@@ -7,6 +7,8 @@ export CONREATE_DEVICE_NAME="$(bashio::config 'device_name')"
 export CONREATE_LOCAL_ADDR="$(bashio::config 'local_addr')"
 export CONREATE_LOCAL_PORT="$(bashio::config 'local_port')"
 export CONREATE_STATE_DIR="/config"
+export CONREATE_STATUS_PATH="/config/status.json"
+export CONREATE_INGRESS_PORT="8099"
 
 if [[ "${CONREATE_CONTROL_PLANE_URL}" != https://* ]]; then
     bashio::log.fatal "Control Plane 地址必须使用 https:// 域名。"
@@ -42,5 +44,25 @@ if [[ ! -f /config/agent-state.json ]]; then
 fi
 
 bashio::log.info "正在启动 Conreate Remote；设备身份保存在 App 私有配置目录。"
-bashio::log.info "启动后请在本页日志中查找“你的 Home Assistant 远程访问网址”。"
-exec python3 -m conreate_agent.main
+bashio::log.info "启动后可点击 App 页面右上角“打开 Web UI”查看和复制远程网址。"
+
+python3 /app/ingress.py &
+ingress_pid=$!
+python3 -m conreate_agent.main &
+agent_pid=$!
+
+shutdown() {
+    kill -TERM "${agent_pid}" "${ingress_pid}" 2>/dev/null || true
+}
+trap shutdown TERM INT
+
+wait -n "${agent_pid}" "${ingress_pid}"
+exit_code=$?
+if ! kill -0 "${ingress_pid}" 2>/dev/null && kill -0 "${agent_pid}" 2>/dev/null; then
+    bashio::log.fatal "Conreate Remote 状态页面意外退出，App 将重新启动。"
+    exit_code=1
+fi
+shutdown
+wait "${agent_pid}" 2>/dev/null || true
+wait "${ingress_pid}" 2>/dev/null || true
+exit "${exit_code}"

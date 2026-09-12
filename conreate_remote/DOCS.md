@@ -2,6 +2,8 @@
 
 Conreate Remote connects this Home Assistant installation to a self-hosted Conreate Cloud server. Device activation is independent of Home Assistant user authentication; anyone opening the assigned remote URL must still sign in to Home Assistant normally.
 
+After starting the App, select **Open Web UI** to open its administrator-only status page inside Home Assistant. The page shows the current remote URL, copy/open actions, tunnel state, applied/desired route revisions, last update, failed-change guidance, and the exact trusted-proxy address for HTTP 400. It is read-only and never exposes device, FRP, activation, recovery, or Home Assistant credentials.
+
 ## Before installation
 
 Ask the Conreate Cloud administrator for:
