@@ -86,12 +86,12 @@ APP_HTML = r'''<!doctype html>
   </main><div id="toast" class="toast" role="status"></div>
   <script>
     const $=id=>document.getElementById(id);let currentUrl="";
-    const phaseLabels={starting:"正在启动",activating:"正在激活",recovering:"正在恢复",tunnel_starting:"隧道切换中",connected:"连接正常",configuration_required:"HA 待配置",retrying:"正在重连",revoked:"设备已撤销",configuration_error:"配置错误"};
+    const phaseLabels={starting:"正在启动",activating:"正在激活",recovering:"正在恢复",tunnel_starting:"隧道切换中",connected:"连接正常",configuration_required:"HA 待配置",retrying:"正在重连",service_expired:"服务已到期",revoked:"设备已撤销",configuration_error:"配置错误"};
     function cidr(value){return value?value+(value.includes(":")?"/128":"/32"):"等待 App 上报"}
     function timeText(value){if(!value)return "—";const date=new Date(value);return Number.isNaN(date.getTime())?"—":new Intl.DateTimeFormat("zh-CN",{month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit",second:"2-digit"}).format(date)}
     function toast(text){const item=$("toast");item.textContent=text;item.classList.add("show");setTimeout(()=>item.classList.remove("show"),1800)}
     function paint(s){
-      const phase=s.phase||"starting",badge=$("phase");badge.textContent=phaseLabels[phase]||phase;badge.className="badge "+(["connected"].includes(phase)?"ok":["revoked","configuration_error"].includes(phase)?"bad":"warn");
+      const phase=s.phase||"starting",badge=$("phase");badge.textContent=phaseLabels[phase]||phase;badge.className="badge "+(["connected"].includes(phase)?"ok":["revoked","configuration_error","service_expired"].includes(phase)?"bad":"warn");
       currentUrl=s.remote_url||"";const url=$("url"),open=$("open"),copy=$("copy");url.textContent=currentUrl||"等待设备连接…";url.href=currentUrl||"#";url.classList.toggle("disabled",!currentUrl);open.href=currentUrl||"#";open.setAttribute("aria-disabled",String(!currentUrl));copy.disabled=!currentUrl;
       $("tunnel").textContent=phaseLabels[phase]||phase;const desired=s.assignment_revision,applied=s.applied_assignment_revision;$("revision").textContent=desired?(desired===applied?`v${applied} 已生效`:`v${applied||"—"} → v${desired}`):"—";$("updated").textContent=timeText(s.updated_at);
       const route=$("route"),routeState=s.route_change_status;route.style.display=routeState==="pending"||routeState==="failed"?"block":"none";route.className="route "+(routeState==="failed"?"failed":"");$("route-title").textContent=routeState==="failed"?"上次网址切换失败":"正在确认新网址";$("route-detail").textContent=routeState==="failed"?(s.route_change_error||"设备已返回当前可用网址。"):`新版本 v${desired||"—"} 已下发；探测成功后自动生效。`;
